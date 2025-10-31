@@ -10,8 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cub3d.h"
+
 int main(int argc, char* *argv[])
 {
-	if argc != x &|| argc != x2)
-	{
+	if (argc != 2)
+		error_exit("Usage: ./cub3d <map_file.cub>");
+	t_data data;
+	if(parse_file(argv[1], &data) == -1)
+		error_exit("Error parsing the map file");
+		
+}
 
