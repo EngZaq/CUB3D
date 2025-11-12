@@ -1,4 +1,4 @@
-#ifndef BUB#D_H
+#ifndef CUB3D_H
 # define CUB3D_H
 
 #include <stdlib.h>
@@ -28,6 +28,9 @@ typedef struct s_data{
 
     int    map_width;
     int    map_height;
+
+	void	*mlx;
+	void	*win;
 } t_data;
 
 void error_exit(char *message);
