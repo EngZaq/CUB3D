@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zal-qais <zal-qais@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/15 20:16:59 by marvin            #+#    #+#             */
-/*   Updated: 2025/12/15 20:16:59 by marvin           ###   ########.fr       */
+/*   Created: 2025/12/24 21:12:53 by zal-qais          #+#    #+#             */
+/*   Updated: 2025/12/24 21:12:53 by zal-qais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int	get_texture_color(t_game *game, int tex_x, int tex_y)
 	return (*(unsigned int *)dst);
 }
 
-int	render_frame(t_game *game)
+int render_frame(t_game *game)
 {
-	cast_rays(game);
-	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
-	return (0);
+    cast_rays(game);
+    mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
+    return (0);
 }

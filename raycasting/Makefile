@@ -2,66 +2,61 @@ NAME        = cub3D
 CC          = cc
 CFLAGS      = -Wall -Wextra -Werror -g3
 
-# --- Sources ---
+MLX_DIR     = ./minilibx-linux
+MLX_LIB     = $(MLX_DIR)/libmlx.a
+LIBFT_DIR   = ./Libft
+LIBFT_LIB   = $(LIBFT_DIR)/libft.a
+
 SRCS        = main.c \
+              init.c \
               init_mlx.c \
-              raycasting.c \
-              render.c \
               hooks.c \
               move.c \
-			  clean.c
+              render.c \
+              raycasting.c \
+              clean.c \
+              parse_info.c \
+              parse_map.c \
+              check_map.c \
+              parse_utils.c \
+              get_next_line.c
 
 OBJS        = $(SRCS:.c=.o)
 
-# --- MiniLibX Configuration ---
-# Change 'mlx' to the actual name of your minilibx folder (e.g., minilibx-linux)
-MLX_DIR     = ./minilibx-linux
-MLX_LIB     = $(MLX_DIR)/libmlx.a
 
-# Detect OS to set library flags correctly
-UNAME_S := $(shell uname -s)
+INCLUDES    = -I. -I$(MLX_DIR) -I$(LIBFT_DIR)
+MLX_FLAGS   = -L$(MLX_DIR) -lmlx -L/usr/lib -lXext -lX11 -lm -lz
+LIBFT_FLAGS = -L$(LIBFT_DIR) -lft
 
-ifeq ($(UNAME_S), Linux)
-	# Linux Flags: requires X11 and Xext
-	MLX_FLAGS = -L$(MLX_DIR) -lmlx -L/usr/lib -lXext -lX11 -lm -lz
-else
-	# MacOS Flags: requires OpenGL and AppKit frameworks
-	MLX_FLAGS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit -lm
-endif
 
-# --- Headers ---
-INCLUDES    = -I. -I$(MLX_DIR)
+all: $(MLX_LIB) $(LIBFT_LIB) $(NAME)
 
-# --- Rules ---
-
-all: $(NAME)
-
-$(NAME): $(OBJS) $(MLX_LIB)
+$(NAME): $(OBJS)
 	@echo "Linking $(NAME)..."
-	$(CC) $(OBJS) $(MLX_FLAGS) -o $(NAME)
+	$(CC) $(OBJS) $(MLX_FLAGS) $(LIBFT_FLAGS) -o $(NAME)
 	@echo "Done!"
 
-# Compile Object Files
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-# Ensure MLX is compiled if not already
 $(MLX_LIB):
-	@echo "Compiling MiniLibX..."
-	@make -C $(MLX_DIR) > /dev/null
+	@echo "Building MiniLibX..."
+	@make -C $(MLX_DIR) > /dev/null 2>&1
+
+$(LIBFT_LIB):
+	@echo "Building Libft..."
+	@make -C $(LIBFT_DIR)
 
 clean:
 	@echo "Cleaning object files..."
 	@rm -f $(OBJS)
-	# Optional: Clean MLX too (uncomment if desired)
-	# @make -C $(MLX_DIR) clean
+	@make -C $(LIBFT_DIR) clean
 
 fclean: clean
 	@echo "Cleaning executable..."
 	@rm -f $(NAME)
+	@make -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
-bonus: all
-
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re

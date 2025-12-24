@@ -149,7 +149,7 @@ void	init_ray(t_game *game, int x)
 	game->ray.delta_dist_y = fabs(1 / game->ray.ray_dir_y);
 	game->ray.hit = 0;
 }
-static int count;
+
 void	cast_rays(t_game *game)
 {
 	int	x;
@@ -166,6 +166,4 @@ void	cast_rays(t_game *game)
 		draw_stripe(game, x);
 		x++;
 	}
-	printf("%dtheta: %f, %f\n",count, game->player.dir_y, game->player.dir_x);
-	count++;
 }

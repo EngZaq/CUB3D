@@ -34,27 +34,22 @@ void	free_map(t_game *game)
 	game->map = NULL;
 }
 
-/**
- * @brief Main cleanup function for non-MLX memory.
- * Frees the map and texture paths (if your parser allocated them).
- */
-void	free_game(t_game *game)
-{
-	free_map(game);
 
-	// NOTE: Only uncomment the loop below if your partner's parser 
-	// uses malloc/ft_strdup for the texture paths. 
-	// In our test 'main.c', these are static strings, so we DO NOT free them.
-	
-	/*
-	int i = 0;
-	while (i < 4)
-	{
-		if (game->tex_paths[i])
-			free(game->tex_paths[i]);
-		i++;
-	}
-	*/
+void free_game(t_game *game)
+{
+
+    if (game->map)
+    {
+        int i = 0;
+        while (i < game->map_height)
+            free(game->map[i++]);
+        free(game->map);
+    }
+    for (int i = 0; i < 4; i++)
+    {
+        if (game->tex_paths[i])
+            free(game->tex_paths[i]);
+    }
 }
 
 /**
