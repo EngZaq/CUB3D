@@ -46,7 +46,8 @@ void	draw_stripe(t_game *game, int x)
 	{
 		strip.tex_y = (int)strip.tex_pos % strip.curr_tex->height;
 		strip.tex_pos += strip.step;
-		put_pixel(game, x, y, get_texture_color(game, strip.tex_x, strip.tex_y));
+		put_pixel(game, x, y,
+			get_texture_color(game, strip.tex_x, strip.tex_y));
 	}
 	y = game->ray.draw_end - 1;
 	while (++y < HEIGHT)

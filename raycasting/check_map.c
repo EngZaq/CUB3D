@@ -12,13 +12,13 @@
 
 #include "cub3d.h"
 
-static int is_valid_char(char c)
+static int	is_valid_char(char c)
 {
-	return (c == '0' || c == '1' || c == 'N' || c == 'S' || 
-			c == 'E' || c == 'W' || c == ' ');
+	return (c == '0' || c == '1' || c == 'N' || c == 'S'
+		|| c == 'E' || c == 'W' || c == ' ');
 }
 
-static int set_player(t_game *game, int x, int y, char dir)
+static int	set_player( t_game *game, int x, int y, char dir)
 {
 	if (game->player.dir_x != 0 || game->player.dir_y != 0)
 	{
@@ -55,14 +55,15 @@ static int set_player(t_game *game, int x, int y, char dir)
 		game->player.plane_x = 0;
 		game->player.plane_y = -0.66;
 	}
-	game->map[y][x] = '0'; // Replace player char with floor
+	game->map[y][x] = '0';
 	return (1);
 }
 
-static int check_valid_chars(t_game *game)
+static int	check_valid_chars( t_game *game)
 {
-	int x, y;
-	char c;
+	int		x;
+	int		y;
+	char	c;
 
 	y = 0;
 	while (y < game->map_height)
@@ -93,12 +94,11 @@ static int check_valid_chars(t_game *game)
 	return (1);
 }
 
-static int check_cell_surrounded(t_game *game, int x, int y)
+static int	check_cell_surrounded(t_game *game, int x, int y)
 {
-	// Check if any adjacent cell (including diagonals for spaces) is out of bounds or space
-	if (x == 0 || y == 0 || x >= game->map_width - 1 || y >= game->map_height - 1)
+	if (x == 0 || y == 0 || x >= game->map_width - 1
+		|| y >= game->map_height - 1)
 		return (0);
-	// Check cardinal directions
 	if (game->map[y - 1][x] == ' ' || game->map[y + 1][x] == ' ')
 		return (0);
 	if (game->map[y][x - 1] == ' ' || game->map[y][x + 1] == ' ')
@@ -106,10 +106,11 @@ static int check_cell_surrounded(t_game *game, int x, int y)
 	return (1);
 }
 
-static int check_walls(t_game *game)
+static int	check_walls(t_game *game)
 {
-	int x, y;
-	char c;
+	int		x;
+	int		y;
+	char	c;
 
 	y = 0;
 	while (y < game->map_height)
@@ -118,7 +119,6 @@ static int check_walls(t_game *game)
 		while (x < game->map_width)
 		{
 			c = game->map[y][x];
-			// Only check floor tiles ('0') - they must be surrounded by walls
 			if (c == '0')
 			{
 				if (!check_cell_surrounded(game, x, y))
@@ -134,7 +134,7 @@ static int check_walls(t_game *game)
 	return (1);
 }
 
-int validate_map(t_game *game)
+int	validate_map(t_game *game)
 {
 	if (!game->map || game->map_height == 0 || game->map_width == 0)
 	{

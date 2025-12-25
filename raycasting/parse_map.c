@@ -12,9 +12,9 @@
 
 #include "cub3d.h"
 
-static int count_map_lines(char **lines)
+static int	count_map_lines(char **lines)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	while (lines && lines[count])
@@ -22,9 +22,9 @@ static int count_map_lines(char **lines)
 	return (count);
 }
 
-static char *remove_newline(char *line)
+static char	*remove_newline(char *line)
 {
-	int len;
+	int	len;
 
 	if (!line)
 		return (NULL);
@@ -34,11 +34,11 @@ static char *remove_newline(char *line)
 	return (line);
 }
 
-static int get_max_width(char **lines)
+static int	get_max_width(char **lines)
 {
-	int max;
-	int len;
-	int i;
+	int	max;
+	int	len;
+	int	i;
 
 	max = 0;
 	i = 0;
@@ -52,7 +52,7 @@ static int get_max_width(char **lines)
 	return (max);
 }
 
-static char *pad_line(char *line, int width)
+static char	*pad_line(char *line, int width)
 {
 	char	*padded;
 	int		len;
@@ -77,7 +77,7 @@ static char *pad_line(char *line, int width)
 	return (padded);
 }
 
-int store_map(t_game *game, char **raw_lines)
+int	store_map(t_game *game, char **raw_lines)
 {
 	int		height;
 	int		width;
@@ -104,10 +104,10 @@ int store_map(t_game *game, char **raw_lines)
 	return (1);
 }
 
-static int add_line_to_array(char ***lines, int *count, char *line)
+static int	add_line_to_array(char ***lines, int *count, char *line)
 {
-	char **new_lines;
-	int i;
+	char	**new_lines;
+	int		i;
 
 	new_lines = malloc(sizeof(char *) * (*count + 2));
 	if (!new_lines)
@@ -126,12 +126,12 @@ static int add_line_to_array(char ***lines, int *count, char *line)
 	return (1);
 }
 
-static void free_lines(char **lines)
+static void	free_lines(char **lines)
 {
-	int i;
+	int	i;
 
 	if (!lines)
-		return;
+		return ;
 	i = 0;
 	while (lines[i])
 	{
@@ -141,7 +141,7 @@ static void free_lines(char **lines)
 	free(lines);
 }
 
-int parse_map_from_fd(t_game *game, int fd, char *first_line)
+int	parse_map_from_fd(t_game *game, int fd, char *first_line)
 {
 	char	**map_lines;
 	char	*line;
@@ -150,10 +150,8 @@ int parse_map_from_fd(t_game *game, int fd, char *first_line)
 
 	map_lines = NULL;
 	line_count = 0;
-	// Add the first map line
 	if (!add_line_to_array(&map_lines, &line_count, first_line))
 		return (0);
-	// Read remaining lines
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -171,7 +169,7 @@ int parse_map_from_fd(t_game *game, int fd, char *first_line)
 	return (result);
 }
 
-int parse_file(char *file, t_game *game)
+int	parse_file(char *file, t_game *game)
 {
 	int		fd;
 	char	*line;
@@ -192,13 +190,14 @@ int parse_file(char *file, t_game *game)
 			close(fd);
 			return (0);
 		}
-		if (result == 2) // Found map line
+		if (result == 2)
 		{
 			if (has_data_missing(game))
 			{
 				free(line);
 				close(fd);
-				return (printf("Error\nMissing texture or color before map\n"), 0);
+				return (printf
+					("Error\nMissingtexture or color before map\n"), 0);
 			}
 			result = parse_map_from_fd(game, fd, line);
 			free(line);

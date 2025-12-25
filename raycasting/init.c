@@ -12,10 +12,9 @@
 
 #include "cub3d.h"
 
-void init_game_struct(t_game *game)
+void	init_game_struct(t_game *game)
 {
-    ft_memset(game, 0, sizeof(t_game));
-    game->floor_color = -1;
-    game->ceil_color = -1;
-    
+	ft_memset(game, 0, sizeof(t_game));
+	game->floor_color = -1;
+	game->ceil_color = -1;
 }

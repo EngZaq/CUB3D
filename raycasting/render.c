@@ -29,13 +29,20 @@ int	get_texture_color(t_game *game, int tex_x, int tex_y)
 	t_img	*tex;
 
 	if (game->ray.side == 0)
-		tex_num = (game->ray.ray_dir_x > 0) ? 3 : 2; // East : West
+	{
+		if (game->ray.ray_dir_x > 0)
+			tex_num = 3;
+		else
+			tex_num = 2;
+	}
 	else
-		tex_num = (game->ray.ray_dir_y > 0) ? 1 : 0; // South : North
-	
-	// Corrected: accessing game->textures
+	{
+		if (game->ray.ray_dir_y > 0)
+			tex_num = 1;
+		else
+			tex_num = 0;
+	}
 	tex = &game->textures[tex_num];
-	
 	if (tex_x >= tex->width)
 		tex_x = tex->width - 1;
 	if (tex_y >= tex->height)
@@ -44,9 +51,9 @@ int	get_texture_color(t_game *game, int tex_x, int tex_y)
 	return (*(unsigned int *)dst);
 }
 
-int render_frame(t_game *game)
+int	render_frame(t_game *game)
 {
-    cast_rays(game);
-    mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
-    return (0);
+	cast_rays(game);
+	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
+	return (0);
 }

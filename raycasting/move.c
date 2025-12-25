@@ -58,12 +58,8 @@ void	move_strafe(t_game *game, double move_speed, int dir)
 
 	new_x = game->player.pos_x + (game->player.plane_x * move_speed * dir);
 	new_y = game->player.pos_y + (game->player.plane_y * move_speed * dir);
-	
-	// Move X if no wall
 	if (!is_wall(game, new_x, game->player.pos_y))
 		game->player.pos_x = new_x;
-	
-	// Move Y if no wall
 	if (!is_wall(game, game->player.pos_x, new_y))
 		game->player.pos_y = new_y;
 }

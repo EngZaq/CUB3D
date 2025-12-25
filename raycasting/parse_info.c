@@ -12,14 +12,14 @@
 
 #include "cub3d.h"
 
-static char *skip_spaces(char *str)
+static char	*skip_spaces(char *str)
 {
 	while (*str == ' ' || *str == '\t')
 		str++;
 	return (str);
 }
 
-static char *extract_path(char *line)
+static char	*extract_path(char *line)
 {
 	char	*path;
 	char	*start;
@@ -40,10 +40,10 @@ static char *extract_path(char *line)
 	return (path);
 }
 
-static int parse_color_value(char *str, int *i)
+static int	parse_color_value(char *str, int *i)
 {
-	int value;
-	int digits;
+	int	value;
+	int	digits;
 
 	value = 0;
 	digits = 0;
@@ -62,10 +62,12 @@ static int parse_color_value(char *str, int *i)
 	return (value);
 }
 
-int parse_color(char *line)
+int	parse_color(char *line)
 {
-	int r, g, b;
-	int i;
+	int	r;
+	int	g;
+	int	b;
+	int	i;
 
 	i = 0;
 	r = parse_color_value(line, &i);
@@ -86,7 +88,7 @@ int parse_color(char *line)
 	return ((r << 16) | (g << 8) | b);
 }
 
-int parse_texture(t_game *game, char *line, int index)
+int	parse_texture(t_game *game, char *line, int index)
 {
 	if (game->tex_paths[index] != NULL)
 	{
@@ -102,9 +104,9 @@ int parse_texture(t_game *game, char *line, int index)
 	return (1);
 }
 
-int parse_element(t_game *game, char *line)
+int	parse_element(t_game *game, char *line)
 {
-	char *trimmed;
+	char	*trimmed;
 
 	trimmed = skip_spaces(line);
 	if (ft_strncmp(trimmed, "NO ", 3) == 0)
@@ -128,7 +130,6 @@ int parse_element(t_game *game, char *line)
 			return (printf("Error\nInvalid ceiling color\n"), 0);
 	}
 	else if (*trimmed && *trimmed != '\n')
-		return (2); // Might be map line
+		return (2);
 	return (1);
 }
-
