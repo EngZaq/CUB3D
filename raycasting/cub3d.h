@@ -32,6 +32,7 @@
 # define KEY_D 100
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
+#define BUFFER_SIZE 1024
 
 typedef struct s_img
 {
@@ -117,11 +118,33 @@ int		parse_file(char *file, t_game *game);
 int		check_extension(char *file);
 int		is_map_line(char *line);
 int		validate_map(t_game *game);
+int		check_valid_chars(t_game *game);
+int		check_char_at(t_game *game, int x, int y);
+int		set_player(t_game *game, int x, int y, char dir);
+void	set_player_dir(t_game *game, char dir);
+void	set_player_dir_ns(t_game *game, char dir);
+void	set_player_dir_ew(t_game *game, char dir);
+int		is_valid_char(char c);
 int		parse_element(t_game *game, char *line);
 int		has_data_missing(t_game *game);
 void	free_split(char **split);
 int		get_array_len(char **arr);
 char	*get_next_line(int fd);
+char	*remove_newline(char *line);
+char	*extract_line(char **buffer);
+char	*ft_strjoin_free(char *s1, char *s2);
+int		has_newline(char *str);
+int		store_map(t_game *game, char **raw_lines);
+int		parse_map_from_fd(t_game *game, int fd, char *first_line);
+int		add_line_to_array(char ***lines, int *count, char *line);
+void	free_lines(char **lines);
+int		process_line(t_game *game, int fd, char *line);
+char	*extract_path(char *line);
+char	*skip_spaces(char *str);
+int		parse_color(char *line);
+int		count_map_lines(char **lines);
+int		get_max_width(char **lines);
+char	*pad_line(char *line, int width);
 
 // Game Logic
 int		render_frame(t_game *game);
@@ -130,5 +153,8 @@ int		handle_keypress(int key, t_game *game);
 void	move_forward(t_game *game, double speed, int dir);
 void	move_strafe(t_game *game, double speed, int dir);
 void	rotate_player(t_game *game, double rot_speed);
+void	calc_wall_x(t_game *game);
+void	line_height(t_game *game);
+void	draw_stripe(t_game *game, int x);
 
 #endif

@@ -14,12 +14,16 @@ SRCS        = main.c \
               move.c \
               render.c \
               raycasting.c \
+			  raycasting_utils.c \
               clean.c \
               parse_info.c \
+			  parse_information.c \
               parse_map.c \
+			  parser_extra.c \
               check_map.c \
+			  check_map_utils.c \
               parse_utils.c \
-              get_next_line.c
+              get_next_line_f.c
 
 OBJS        = $(SRCS:.c=.o)
 

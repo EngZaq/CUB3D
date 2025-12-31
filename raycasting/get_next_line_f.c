@@ -1,38 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_f.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zal-qais <zal-qais@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 22:00:00 by zal-qais          #+#    #+#             */
-/*   Updated: 2025/12/31 10:51:38 by zal-qais         ###   ########.fr       */
+/*   Updated: 2025/12/31 11:36:01 by zal-qais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-#define BUFFER_SIZE 1024
-
-static char	*ft_strjoin_free(char *s1, char *s2)
+static char	*copy_strings(char *result, char *s1, char *s2, size_t len1)
 {
-	char	*result;
-	size_t	len1;
 	size_t	len2;
 	size_t	i;
 
-	if (!s1)
-	{
-		s1 = malloc(1);
-		s1[0] = '\0';
-	}
-	if (!s2)
-		return (s1);
-	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
-	result = malloc(len1 + len2 + 1);
-	if (!result)
-		return (free(s1), NULL);
 	i = 0;
 	while (i < len1)
 	{
@@ -45,11 +30,35 @@ static char	*ft_strjoin_free(char *s1, char *s2)
 		i++;
 	}
 	result[i] = '\0';
+	return (result);
+}
+
+char	*ft_strjoin_free(char *s1, char *s2)
+{
+	char	*result;
+	size_t	len1;
+	size_t	len2;
+
+	if (!s1)
+	{
+		s1 = malloc(1);
+		if (!s1)
+			return (NULL);
+		s1[0] = '\0';
+	}
+	if (!s2)
+		return (s1);
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	result = malloc(len1 + len2 + 1);
+	if (!result)
+		return (free(s1), NULL);
+	copy_strings(result, s1, s2, len1);
 	free(s1);
 	return (result);
 }
 
-static int	has_newline(char *str)
+int	has_newline(char *str)
 {
 	int	i;
 
@@ -65,10 +74,26 @@ static int	has_newline(char *str)
 	return (0);
 }
 
-static char	*extract_line(char **buffer)
+static void	update_buffer(char **buffer, int i)
+{
+	char	*new_buffer;
+
+	if ((*buffer)[i])
+	{
+		new_buffer = ft_strdup(*buffer + i);
+		free(*buffer);
+		*buffer = new_buffer;
+	}
+	else
+	{
+		free(*buffer);
+		*buffer = NULL;
+	}
+}
+
+char	*extract_line(char **buffer)
 {
 	char	*line;
-	char	*new_buffer;
 	int		i;
 	int		j;
 
@@ -87,41 +112,6 @@ static char	*extract_line(char **buffer)
 		j++;
 	}
 	line[j] = '\0';
-	if ((*buffer)[i])
-	{
-		new_buffer = ft_strdup(*buffer + i);
-		free(*buffer);
-		*buffer = new_buffer;
-	}
-	else
-	{
-		free(*buffer);
-		*buffer = NULL;
-	}
+	update_buffer(buffer, i);
 	return (line);
-}
-
-char	*get_next_line(int fd)
-{
-	static char	*buffer;
-	char		temp[BUFFER_SIZE + 1];
-	int			bytes_read;
-
-	if (fd < 0)
-		return (NULL);
-	while (!has_newline(buffer))
-	{
-		bytes_read = read(fd, temp, BUFFER_SIZE);
-		if (bytes_read <= 0)
-			break ;
-		temp[bytes_read] = '\0';
-		buffer = ft_strjoin_free(buffer, temp);
-	}
-	if (!buffer || buffer[0] == '\0')
-	{
-		free(buffer);
-		buffer = NULL;
-		return (NULL);
-	}
-	return (extract_line(&buffer));
 }

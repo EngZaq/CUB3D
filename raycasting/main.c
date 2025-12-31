@@ -18,6 +18,15 @@ int	close_window_cross(t_game *game)
 	return (0);
 }
 
+static void	run_game(t_game *game)
+{
+	render_frame(game);
+	mlx_hook(game->win, 2, 1L << 0, handle_keypress, game);
+	mlx_hook(game->win, 17, 0, close_window_cross, game);
+	mlx_loop_hook(game->mlx, render_frame, game);
+	mlx_loop(game->mlx);
+}
+
 int	main(int argc, char **argv)
 {
 	t_game	game;
@@ -41,10 +50,6 @@ int	main(int argc, char **argv)
 		free_game(&game);
 		return (1);
 	}
-	render_frame(&game);
-	mlx_hook(game.win, 2, 1L << 0, handle_keypress, &game);
-	mlx_hook(game.win, 17, 0, close_window_cross, &game);
-	mlx_loop_hook(game.mlx, render_frame, &game);
-	mlx_loop(game.mlx);
+	run_game(&game);
 	return (0);
 }
