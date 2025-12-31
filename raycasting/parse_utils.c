@@ -6,7 +6,7 @@
 /*   By: zal-qais <zal-qais@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 21:20:06 by zal-qais          #+#    #+#             */
-/*   Updated: 2025/12/24 21:45:57 by zal-qais         ###   ########.fr       */
+/*   Updated: 2025/12/31 10:50:43 by zal-qais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int	get_array_len(char **arr)
 
 int	has_data_missing(t_game *game)
 {
-	if (!game->tex_paths[0] || !game->tex_paths[1] || \
-		!game->tex_paths[2] || !game->tex_paths[3])
+	if (!game->tex_paths[0] || !game->tex_paths[1]
+		|| !game->tex_paths[2] || !game->tex_paths[3])
 		return (1);
 	if (game->floor_color == -1 || game->ceil_color == -1)
 		return (1);

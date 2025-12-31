@@ -6,7 +6,7 @@
 /*   By: zal-qais <zal-qais@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 21:21:53 by zal-qais          #+#    #+#             */
-/*   Updated: 2025/12/24 22:14:54 by zal-qais         ###   ########.fr       */
+/*   Updated: 2025/12/31 10:50:43 by zal-qais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	is_valid_char(char c)
 		|| c == 'E' || c == 'W' || c == ' ');
 }
 
-static int	set_player( t_game *game, int x, int y, char dir)
+static int	set_player(t_game *game, int x, int y, char dir)
 {
 	if (game->player.dir_x != 0 || game->player.dir_y != 0)
 	{
@@ -59,7 +59,7 @@ static int	set_player( t_game *game, int x, int y, char dir)
 	return (1);
 }
 
-static int	check_valid_chars( t_game *game)
+static int	check_valid_chars(t_game *game)
 {
 	int		x;
 	int		y;

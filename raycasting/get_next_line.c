@@ -6,7 +6,7 @@
 /*   By: zal-qais <zal-qais@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 22:00:00 by zal-qais          #+#    #+#             */
-/*   Updated: 2025/12/24 22:14:54 by zal-qais         ###   ########.fr       */
+/*   Updated: 2025/12/31 10:51:38 by zal-qais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #define BUFFER_SIZE 1024
 
-static char *ft_strjoin_free(char *s1, char *s2)
+static char	*ft_strjoin_free(char *s1, char *s2)
 {
 	char	*result;
 	size_t	len1;
@@ -49,9 +49,9 @@ static char *ft_strjoin_free(char *s1, char *s2)
 	return (result);
 }
 
-static int has_newline(char *str)
+static int	has_newline(char *str)
 {
-	int i;
+	int	i;
 
 	if (!str)
 		return (0);
@@ -65,7 +65,7 @@ static int has_newline(char *str)
 	return (0);
 }
 
-static char *extract_line(char **buffer)
+static char	*extract_line(char **buffer)
 {
 	char	*line;
 	char	*new_buffer;
@@ -101,7 +101,7 @@ static char *extract_line(char **buffer)
 	return (line);
 }
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
 	static char	*buffer;
 	char		temp[BUFFER_SIZE + 1];
@@ -113,7 +113,7 @@ char *get_next_line(int fd)
 	{
 		bytes_read = read(fd, temp, BUFFER_SIZE);
 		if (bytes_read <= 0)
-			break;
+			break ;
 		temp[bytes_read] = '\0';
 		buffer = ft_strjoin_free(buffer, temp);
 	}

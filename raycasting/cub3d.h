@@ -1,20 +1,20 @@
 /* ************************************************************************** */
-/* */
-/* :::      ::::::::   */
-/* cub3d.h                                            :+:      :+:    :+:   */
-/* +:+ +:+         +:+     */
-/* By: zal-qais <zal-qais@student.42amman.com>    +#+  +:+       +#+        */
-/* +#+#+#+#+#+   +#+           */
-/* Created: 2025/12/24 21:14:04 by zal-qais          #+#    #+#             */
-/* Updated: 2025/12/24 21:14:04 by zal-qais         ###   ########.fr       */
-/* */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zal-qais <zal-qais@student.42amman.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/24 21:14:04 by zal-qais          #+#    #+#             */
+/*   Updated: 2025/12/24 21:14:04 by zal-qais         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "minilibx-linux/mlx.h" 
-# include "Libft/libft.h"       
+# include "minilibx-linux/mlx.h"
+# include "Libft/libft.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
@@ -33,7 +33,8 @@
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
 
-typedef struct s_img {
+typedef struct s_img
+{
 	void	*img;
 	char	*addr;
 	int		bpp;
@@ -43,7 +44,8 @@ typedef struct s_img {
 	int		height;
 }	t_img;
 
-typedef struct s_strip{
+typedef struct s_strip
+{
 	int		tex_y;
 	int		tex_x;
 	double	step;
@@ -51,7 +53,8 @@ typedef struct s_strip{
 	t_img	*curr_tex;
 }	t_strip;
 
-typedef struct s_player {
+typedef struct s_player
+{
 	double	pos_x;
 	double	pos_y;
 	double	dir_x;
@@ -60,7 +63,8 @@ typedef struct s_player {
 	double	plane_y;
 }	t_player;
 
-typedef struct s_ray {
+typedef struct s_ray
+{
 	double	camera_x;
 	double	ray_dir_x;
 	double	ray_dir_y;
@@ -81,7 +85,8 @@ typedef struct s_ray {
 	double	wall_x;
 }	t_ray;
 
-typedef struct s_game {
+typedef struct s_game
+{
 	void		*mlx;
 	void		*win;
 	t_img		img;
